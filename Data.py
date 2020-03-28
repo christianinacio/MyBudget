@@ -53,11 +53,12 @@ class Data:
     
     @classmethod
     def getStatistic(self):
-        self.c.execute("SELECT sum(amount) FROM Operations WHERE type = 3 AND date between date('now','start of month') AND date('now','start of month','+1 month')")
+        DateCredit = input("Last billing cycle (YYYY-MM-DD)")
+        self.c.execute("SELECT sum(amount) FROM Operations WHERE type = 3")
         sumCash = self.c.fetchone()[0]
-        self.c.execute("SELECT sum(amount) FROM Operations WHERE type = 2 AND date between date('now','start of month') AND date('now','start of month','+1 month')")
+        self.c.execute("SELECT sum(amount) FROM Operations WHERE type = 2 AND date > ?",(DateCredit,))
         sumCredit = self.c.fetchone()[0]
-        self.c.execute("SELECT sum(amount) FROM Operations WHERE type = 1 AND date between date('now','start of month') AND date('now','start of month','+1 month')")
+        self.c.execute("SELECT sum(amount) FROM Operations WHERE type = 1")
         sumDebit = self.c.fetchone()[0]
         print(" Total Debit     Total Credit      Total Cash ")
         print("   " + str(sumDebit) + "             " + str(sumCredit) + "           " + str(sumCash))

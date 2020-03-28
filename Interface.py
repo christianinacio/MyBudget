@@ -1,4 +1,5 @@
 from Data import Data
+from Validations import Validation
 from models.Operation import Operation
 import datetime
 import os
@@ -9,6 +10,7 @@ class Interface:
     def options(self):
         Data.connect()
         Data.create_tables()
+        #TO DO: only if it's first time you create table
         #Data.insertType()
         print("1. Add operation")
         print("2. Statistic")
@@ -42,15 +44,21 @@ class Interface:
 
     @classmethod
     def insertOperation(self):
-        print("New operation:")
-        date = input("    Date (YYYY-MM-DD): ")
-        typeOp = int(self.selectType())
-        desc = input("    Description: ")
-        amount = input("    Amount: ")
-        save = input("Do you want save it ? (Y/n)")
-        if save=='y' or save=='Y':
-            operation = Operation(date, typeOp, desc, amount)
-            Data.insertOperation(operation)
+        try:
+            print("New operation:")
+            date = input("    Date (YYYY-MM-DD): ")
+            Validation.validation_date(date)
+            typeOp = int(self.selectType())
+            Validation.valitdation_typeOperation(typeOp)
+            desc = input("    Description: ")
+            amount = input("    Amount: ")
+            save = input("Do you want save it ? (Y/n)")
+            if save=='y' or save=='Y':
+                operation = Operation(date, typeOp, desc, amount)
+                Data.insertOperation(operation)
+        except Exception as e:
+            print(e)
+            input("Press enter for continue")
     
 
 
