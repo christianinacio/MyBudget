@@ -8,6 +8,7 @@ class Interface:
 
     @classmethod
     def options(self):
+        print("### MY BUDGET #### \n")
         Data.connect()
         Data.create_tables()
         #TO DO: only if it's first time you create table
@@ -19,10 +20,11 @@ class Interface:
     
     @classmethod
     def StatisticMenu(self):
-        print("1. Monthly Operation")
-        print("2. Totals")
-        print("3. Cash Operation")
-        print("4. Back \n ")
+        print("2. Statistic:")
+        print("   |->  1. Monthly Operation")
+        print("   |->  2. Totals")
+        print("   |->  3. Cash Operation")
+        print("   |->  4. Back \n ")
         option = input("Enter option: ")
         if option == '1':
             Data.getOperationMonthly()
@@ -30,9 +32,10 @@ class Interface:
             Data.getStatistic()
         elif option == '3':
             Data.getOperationForType(3)
-        input("Press enter")
+        if option != '4':   
+            input("Press enter")
         os.system('clear')
-        
+                
 
     @classmethod
     def selectType(self):

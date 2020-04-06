@@ -2,8 +2,6 @@ from models.Operation import Operation
 from Interface import Interface
 import os
 
-print("### MY BUDGET ####")
-
 option = Interface.options()
 os.system('clear')
 while(option != "4"):
