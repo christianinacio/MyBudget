@@ -11,8 +11,6 @@ class Interface:
         print("### MY BUDGET #### \n")
         Data.connect()
         Data.create_tables()
-        #TO DO: only if it's first time you create table
-        #Data.insertType()
         print("1. Add operation")
         print("2. Statistic")
         print("4. Exit \n ")
@@ -24,7 +22,8 @@ class Interface:
         print("   |->  1. Monthly Operation")
         print("   |->  2. Totals")
         print("   |->  3. Cash Operation")
-        print("   |->  4. Back \n ")
+        print("   |->  4. Monthly Expenses")
+        print("   |->  5. Back \n ")
         option = input("Enter option: ")
         if option == '1':
             Data.getOperationMonthly()
@@ -32,7 +31,10 @@ class Interface:
             Data.getStatistic()
         elif option == '3':
             Data.getOperationForType(3)
-        if option != '4':   
+        elif option == '4':
+            #TODO: show mothly Expenses
+            print("Comming soon ...")
+        if option != '5':   
             input("Press enter")
         os.system('clear')
                 

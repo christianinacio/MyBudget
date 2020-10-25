@@ -12,6 +12,10 @@ class Data:
     def create_tables(self):
         self.c.execute('CREATE TABLE IF NOT EXISTS Operations(id INTEGER PRIMARY KEY AUTOINCREMENT, date DATE, type INTEGER, descr VARCHAR(40), amount DOUBLE)')
         self.c.execute('CREATE TABLE IF NOT EXISTS TypeOperations(id INTEGER PRIMARY KEY,desc VARCHAR(20))')
+        self.c.execute("INSERT OR IGNORE INTO TypeOperations VALUES (1,'DEBIT')")
+        self.c.execute("INSERT OR IGNORE INTO TypeOperations VALUES (2,'CREDIT')")
+        self.c.execute("INSERT OR IGNORE INTO TypeOperations VALUES (3,'CASH')")
+        self.conn.commit()
 
     @classmethod
     def insertType(self):
@@ -41,7 +45,7 @@ class Data:
     @classmethod
     def getOperationMonthly(self):
         print("Operation Monthly: \n")
-        self.c.execute("SELECT date, t.desc, descr, amount FROM Operations o JOIN TypeOperations t on o.type = t.id WHERE date between date('now','start of month') AND date('now','start of month','+1 month')")
+        self.c.execute("SELECT date, t.desc, descr, amount FROM Operations o LEFT JOIN TypeOperations t on o.type = t.id WHERE date between date('now','start of month') AND date('now','start of month','+1 month')")
         for row in self.c.fetchall():
             print(row)
     
